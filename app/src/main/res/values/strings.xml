@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">infonema</string>
+    <string name="preview_overvire">In the continuing saga of the Corleone crime family, a young Vito Corleone grows up in Sicily and in 1910s New York. In the 1950s, Michael Corleone attempts to expand the family business into Las Vegas, Hollywood and Cuba.</string>
+    <string name="preview_genres">Drama, Crime</string>
+    <string name="overview">Overview:</string>
+    <string name="genres">Genres:</string>
+    <string name="runtime">Runtime:</string>
+    <string name="preview_runtine">200</string>
+    <string name="minutes">min</string>
+    <string name="release_date">Release Date:</string>
+    <string name="preview_release_date">1974-12-20</string>
+    <string name="budget">Budget:</string>
+    <string name="preview_budget">13000000</string>
+    <string name="revenue">Revenue:</string>
+    <string name="preview_revenue">102600000</string>
+    <string name="preview_tagline">I don\'t feel I have to wipe everybody out, Tom. Just my enemies.</string>
+    <string name="preview_title">The Godfather: Part II</string>
+    <string name="popularity">POP</string>
+    <string name="preview_popularity">17.578</string>
+    <string name="votes">score</string>
+    <string name="preview_votes">8.5</string>
 </resources>

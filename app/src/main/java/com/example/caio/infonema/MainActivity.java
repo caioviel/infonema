@@ -1,14 +1,9 @@
 package com.example.caio.infonema;
 
 import android.annotation.SuppressLint;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.example.caio.infonema.database.AppDatabase;
 import com.example.caio.infonema.database.MovieEntity;
-import com.example.caio.infonema.service.TMDBService;
+import com.example.caio.infonema.service.RetrofitSingletron;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -26,8 +21,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements MovieListFragment.OnListFragmentInteractionListener {
 
@@ -70,9 +63,10 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
     }
 
     public void fetchList() {
-        Call<List<MovieEntity>> myCall = service.getMoviesList();
+        RetrofitSingletron retrofit = RetrofitSingletron.getInstance();
+        Call<List<MovieEntity>> call = retrofit.service().getMoviesList();
 
-        myCall.enqueue(new Callback<List<MovieEntity>>() {
+        call.enqueue(new Callback<List<MovieEntity>>() {
             @Override
             public void onResponse(Call<List<MovieEntity>> call, final Response<List<MovieEntity>> response) {
                 Log.i(LOG_TAG, "Movie List Obtained");
@@ -103,6 +97,10 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
 
     @Override
     public void onListFragmentInteraction(MovieEntity item) {
+        Intent detailIntent = new Intent(this, DetailActivity.class);
+        Log.i(LOG_TAG, "MovieID: " + Integer.toString(item.getId()));
+        detailIntent.putExtra("MOVIE_ID", item.getId());
+        startActivity(detailIntent);
 
     }
 

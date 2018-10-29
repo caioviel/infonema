@@ -9,7 +9,7 @@ public class RetrofitSingletron {
     private TMDBService service;
 
     private static final Object LOCK = new Object();
-    private RetrofitSingletron sInstance;
+    private static RetrofitSingletron sInstance;
 
     private RetrofitSingletron() {
         retrofit = new Retrofit.Builder()
@@ -24,7 +24,7 @@ public class RetrofitSingletron {
         return service;
     }
 
-    public RetrofitSingletron getInstance() {
+    public static RetrofitSingletron getInstance() {
 
         if (sInstance == null) {
             synchronized (LOCK) {

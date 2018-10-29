@@ -1,13 +1,329 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
     tools:context=".DetailFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
 
-</FrameLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_backdrop_url"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:src="@drawable/backimage_dummy"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_adult"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/adult_only"
+            android:visibility="visible"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/img_popularity"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/circle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_adult" />
+
+        <TextView
+            android:id="@+id/lbl_popularity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:text="@string/popularity"
+            android:textColor="@color/colorWhite"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/img_popularity"
+            app:layout_constraintLeft_toLeftOf="@id/img_popularity"
+            app:layout_constraintRight_toRightOf="@id/img_popularity" />
+
+        <TextView
+            android:id="@+id/txt_popularity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{movie.popularity}"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/img_popularity"
+            app:layout_constraintLeft_toLeftOf="@id/img_popularity"
+            app:layout_constraintRight_toRightOf="@id/img_popularity"
+            app:layout_constraintTop_toTopOf="@id/img_popularity"
+            tools:text="@string/preview_popularity" />
+
+        <ImageView
+            android:id="@+id/img_votes"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/circle_green"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_popularity" />
+
+        <TextView
+            android:id="@+id/lbl_votes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:gravity="center_horizontal"
+            android:text="@string/votes"
+            android:textColor="@color/colorWhite"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/img_votes"
+            app:layout_constraintLeft_toLeftOf="@id/img_votes"
+            app:layout_constraintRight_toRightOf="@id/img_votes" />
+
+        <TextView
+            android:id="@+id/txt_votes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{movie.voteAverage}"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/img_votes"
+            app:layout_constraintLeft_toLeftOf="@id/img_votes"
+            app:layout_constraintRight_toRightOf="@id/img_votes"
+            app:layout_constraintTop_toTopOf="@id/img_votes"
+            tools:text="@string/preview_votes" />
+
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{movie.title}"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/img_backdrop_url"
+            tools:text="@string/preview_title" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        w
+
+        <ImageView
+            android:id="@+id/img_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/dummy_cover"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_backdrop_url" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/txt_overview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@{movie.overview}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/preview_overvire" />
+
+
+                <TextView
+                    android:id="@+id/txt_tagline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{movie.tagline}"
+                    app:layout_constraintTop_toBottomOf="@id/txt_overview"
+                    tools:text="@string/preview_tagline" />
+
+                <TextView
+                    android:id="@+id/lbl_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/genres"
+                    app:layout_constraintTop_toBottomOf="@id/txt_tagline" />
+
+
+                <TextView
+                    android:id="@+id/txt_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{movie.genres}"
+                    app:layout_constraintLeft_toRightOf="@id/lbl_genres"
+                    app:layout_constraintTop_toBottomOf="@id/txt_tagline"
+                    tools:text="@string/preview_genres" />
+
+
+                <TextView
+                    android:id="@+id/lbl_runtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/runtime"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_genres" />
+
+
+                <TextView
+                    android:id="@+id/txt_runtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{movie.runtime}"
+                    app:layout_constraintLeft_toRightOf="@id/lbl_runtime"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_genres"
+                    tools:text="@string/preview_runtine" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintLeft_toRightOf="@id/txt_runtime"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_genres"
+                    tools:text="@string/minutes" />
+
+                <TextView
+                    android:id="@+id/lbl_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/release_date"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_runtime" />
+
+
+                <TextView
+                    android:id="@+id/txt_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{movie.release_date}"
+                    app:layout_constraintLeft_toRightOf="@id/lbl_release_date"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_runtime"
+                    tools:text="@string/preview_release_date" />
+
+
+                <TextView
+                    android:id="@+id/lbl_budget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/budget"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_release_date" />
+
+                <TextView
+                    android:id="@+id/lbl_dollars1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintLeft_toRightOf="@id/lbl_budget"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_release_date"
+                    tools:text="US$" />
+
+
+                <TextView
+                    android:id="@+id/txt_budget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{movie.budget}"
+                    app:layout_constraintLeft_toRightOf="@id/lbl_dollars1"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_release_date"
+                    tools:text="@string/preview_budget" />
+
+                <TextView
+                    android:id="@+id/lbl_revenue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/revenue"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_budget" />
+
+                <TextView
+                    android:id="@+id/lbl_dollars2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintLeft_toRightOf="@id/lbl_revenue"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_budget"
+                    tools:text="US$" />
+
+
+                <TextView
+                    android:id="@+id/txt_revenue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{movie.revenue}"
+                    app:layout_constraintLeft_toRightOf="@id/lbl_dollars2"
+                    app:layout_constraintTop_toBottomOf="@id/lbl_budget"
+                    tools:text="@string/preview_revenue" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,30 +1,23 @@
 package com.example.caio.infonema;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.NonNull;
 
 import com.example.caio.infonema.database.AppDatabase;
 import com.example.caio.infonema.database.MovieEntity;
 
-import java.util.List;
-
 
 public class DetailViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+
+    private static final String LOG_TAG = DetailViewModel.class.getSimpleName();
 
     private LiveData<MovieEntity> movie;
-    
 
-    public DetailViewModel(AppDatabase mDb, int mMovieId) {
-        getFromWeb(mMovieId);
-        movie = mDb.movieDAO().loadTaskById(mMovieId);
+
+    public DetailViewModel(AppDatabase db, int mMovieId) {
+        movie = db.movieDAO().loadTaskById(mMovieId);
     }
 
-    private boolean getFromWeb(int mMovieId) {
-
-    }
 
     public LiveData<MovieEntity> getMovie() {
         return movie;

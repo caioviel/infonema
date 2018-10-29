@@ -34,11 +34,11 @@ public class MovieEntity {
     @SerializedName("backdrop_url")
     protected String backdropUrl;
 
-    @SerializedName("hoempage")
+    @Expose
     protected String homepage;
 
     @SerializedName("imdb_id")
-    protected int imdbId;
+    protected String imdbId;
 
     @SerializedName("original_language")
     protected String originalLanguage;
@@ -82,6 +82,7 @@ public class MovieEntity {
         this.id = id;
     }
 
+
     public String getTitle() {
         return title;
     }
@@ -89,6 +90,7 @@ public class MovieEntity {
     public void setTitle(String title) {
         this.title = title;
     }
+
 
     public String getPosterUrl() {
         return posterUrl;
@@ -98,6 +100,7 @@ public class MovieEntity {
         this.posterUrl = posterUrl;
     }
 
+
     public Date getReleaseDate() {
         return releaseDate;
     }
@@ -105,6 +108,7 @@ public class MovieEntity {
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
+
 
     public int getBudget() {
         return budget;
@@ -114,6 +118,7 @@ public class MovieEntity {
         this.budget = budget;
     }
 
+
     public boolean isAdult() {
         return adult;
     }
@@ -121,6 +126,7 @@ public class MovieEntity {
     public void setAdult(boolean adult) {
         this.adult = adult;
     }
+
 
     public String getBackdropUrl() {
         return backdropUrl;
@@ -130,6 +136,7 @@ public class MovieEntity {
         this.backdropUrl = backdropUrl;
     }
 
+
     public String getHomepage() {
         return homepage;
     }
@@ -138,13 +145,15 @@ public class MovieEntity {
         this.homepage = homepage;
     }
 
-    public int getImdbId() {
+
+    public String getImdbId() {
         return imdbId;
     }
 
-    public void setImdbId(int imdbId) {
+    public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
     }
+
 
     public String getOriginalLanguage() {
         return originalLanguage;
@@ -154,6 +163,7 @@ public class MovieEntity {
         this.originalLanguage = originalLanguage;
     }
 
+
     public String getOriginalTitle() {
         return originalTitle;
     }
@@ -161,6 +171,7 @@ public class MovieEntity {
     public void setOriginalTitle(String originalTitle) {
         this.originalTitle = originalTitle;
     }
+
 
     public String getOverview() {
         return overview;
@@ -224,6 +235,10 @@ public class MovieEntity {
 
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
+    }
+
+    public String getGenres() {
+        return "Drama, Crime";
     }
 
 
