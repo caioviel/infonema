@@ -3,6 +3,8 @@ package com.example.caio.infonema;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
     private ImageView imgLoading;
     private LinearLayout layoutList;
 
+    private DetailFragment detailFragment;
+    private FragmentManager fragmentManager;
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
         imgLoading = findViewById(R.id.img_loading);
         layoutList = findViewById(R.id.layout_list);
 
+        fragmentManager = getSupportFragmentManager();
+        detailFragment = (DetailFragment) fragmentManager.findFragmentById(R.id.detail_list_fragment);
     }
 
     @Override
@@ -78,8 +85,10 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                imgLoading.setVisibility(View.GONE);
-                                layoutList.setVisibility(View.VISIBLE);
+                                if (imgLoading != null) {
+                                    imgLoading.setVisibility(View.GONE);
+                                    layoutList.setVisibility(View.VISIBLE);
+                                }
                             }
                         });
                     }
@@ -97,10 +106,23 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
 
     @Override
     public void onListFragmentInteraction(MovieEntity item) {
-        Intent detailIntent = new Intent(this, DetailActivity.class);
-        Log.i(LOG_TAG, "MovieID: " + Integer.toString(item.getId()));
-        detailIntent.putExtra("MOVIE_ID", item.getId());
-        startActivity(detailIntent);
+        if (detailFragment == null) {
+            Log.i(LOG_TAG, "Calling Detail Activity");
+            Intent detailIntent = new Intent(this, DetailActivity.class);
+            Log.i(LOG_TAG, "MovieID: " + Integer.toString(item.getId()));
+            detailIntent.putExtra("MOVIE_ID", item.getId());
+            startActivity(detailIntent);
+        } else {
+            Log.i(LOG_TAG, "Updating Detail Fragment");
+
+            Bundle args = new Bundle();
+            args.putInt("MOVIE_ID", item.getId());
+            detailFragment.setArguments(args);
+            FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
+            fragTransaction.detach(detailFragment).attach(detailFragment).commit();
+            Log.i(LOG_TAG, "After Commit");
+
+        }
 
     }
 
