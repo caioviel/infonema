@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".DetailFragment">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/img_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/img_loading"
         android:visibility="visible">
 
         <ImageView
@@ -19,21 +19,22 @@
             android:scaleType="centerInside"
             android:src="@drawable/progress_animation"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>
 
 
+
     <LinearLayout
-        android:id="@+id/layout_noview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:gravity="center"
+        android:id="@+id/layout_noview"
         android:orientation="vertical"
+        android:gravity="center"
         android:visibility="gone">
 
 
@@ -202,8 +203,8 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="0.5">
 
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="overview">Sinopse:</string>
+    <string name="genres">Generos:</string>
+    <string name="runtime">Duração:</string>
+    <string name="release_date">Lançamento:</string>
+    <string name="budget">Orçamento:</string>
+    <string name="revenue">Faturamento:</string>
+    <string name="votes">nota</string>
+    <string name="cache_info">Não foi possível recuperar dados da Internet. \n\nUsando informações locais.</string>
+    <string name="cacheEmpty">Não há informações locais.\n\nConecte-se a internet e pressionar o botão para buscar informações.</string>
+    <string name="emptyDetail">Não há detales sobre este filme no cache local.</string>
+
+
+</resources>
