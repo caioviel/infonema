@@ -19,4 +19,8 @@
     <string name="preview_popularity">17.578</string>
     <string name="votes">score</string>
     <string name="preview_votes">8.5</string>
+    <string name="cache_info">Impossible to retrieve data from the Internet. \n\nUsing local cache.</string>
+    <string name="cacheEmpty">No movies in local cache.\n\nConnected to the internet and touch the button bellow to refresh the list.</string>
+    <string name="btn_refresh">Refresh</string>
+    <string name="emptyDetail">No movie detais in local cache.</string>
 </resources>

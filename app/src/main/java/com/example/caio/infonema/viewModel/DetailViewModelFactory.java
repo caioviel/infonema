@@ -1,4 +1,4 @@
-package com.example.caio.infonema;
+package com.example.caio.infonema.viewModel;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

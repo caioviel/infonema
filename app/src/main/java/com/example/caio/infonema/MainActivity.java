@@ -1,40 +1,44 @@
 package com.example.caio.infonema;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.example.caio.infonema.database.AppDatabase;
-import com.example.caio.infonema.database.MovieEntity;
-import com.example.caio.infonema.service.RetrofitSingletron;
+import com.example.caio.infonema.database.MovieItem;
+import com.example.caio.infonema.viewModel.DataRepository;
+import com.example.caio.infonema.viewModel.MovieListViewModel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity implements MovieListFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements
+        MovieListFragment.OnListFragmentInteractionListener,
+        SwipeRefreshLayout.OnRefreshListener,
+        DataRepository.LoadedDataListener<LiveData<List<MovieItem>>> {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private AppDatabase mDb;
-
     private ImageView imgLoading;
-    private LinearLayout layoutList;
+    private LinearLayout layoutList, layoutEmpty;
 
     private DetailFragment detailFragment;
     private FragmentManager fragmentManager;
+    private MovieListFragment movieListFragment;
+    private MovieListViewModel viewModel;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -47,65 +51,29 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
                 .cacheInMemory(true)
                 .resetViewBeforeLoading(true)
                 //.showImageForEmptyUri()
-                //.showImageOnFail()
+                .showImageOnFail(R.drawable.img_not_found)
                 .showImageOnLoading(R.drawable.progress_animation)
                 .build();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).defaultDisplayImageOptions(options).build();
         ImageLoader.getInstance().init(config);
 
 
-        mDb = AppDatabase.getsInstance(this);
-
         imgLoading = findViewById(R.id.img_loading);
         layoutList = findViewById(R.id.layout_list);
+        layoutEmpty = findViewById(R.id.layout_noview);
 
         fragmentManager = getSupportFragmentManager();
         detailFragment = (DetailFragment) fragmentManager.findFragmentById(R.id.detail_list_fragment);
-    }
+        movieListFragment = (MovieListFragment) fragmentManager.findFragmentById(R.id.movie_list_fragment);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+        viewModel = ViewModelProviders.of(this).get(MovieListViewModel.class);
+
         fetchList();
     }
 
-    public void fetchList() {
-        RetrofitSingletron retrofit = RetrofitSingletron.getInstance();
-        Call<List<MovieEntity>> call = retrofit.service().getMoviesList();
-
-        call.enqueue(new Callback<List<MovieEntity>>() {
-            @Override
-            public void onResponse(Call<List<MovieEntity>> call, final Response<List<MovieEntity>> response) {
-                Log.i(LOG_TAG, "Movie List Obtained");
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        mDb.movieDAO().insertAllMovies(response.body());
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (imgLoading != null) {
-                                    imgLoading.setVisibility(View.GONE);
-                                    layoutList.setVisibility(View.VISIBLE);
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call<List<MovieEntity>> call, Throwable t) {
-                Log.e(LOG_TAG, "Error requesting Movie List");
-            }
-        });
-
-    }
-
 
     @Override
-    public void onListFragmentInteraction(MovieEntity item) {
+    public void onListFragmentInteraction(MovieItem item) {
         if (detailFragment == null) {
             Log.i(LOG_TAG, "Calling Detail Activity");
             Intent detailIntent = new Intent(this, DetailActivity.class);
@@ -114,13 +82,7 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
             startActivity(detailIntent);
         } else {
             Log.i(LOG_TAG, "Updating Detail Fragment");
-
-            Bundle args = new Bundle();
-            args.putInt("MOVIE_ID", item.getId());
-            detailFragment.setArguments(args);
-            FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
-            fragTransaction.detach(detailFragment).attach(detailFragment).commit();
-            Log.i(LOG_TAG, "After Commit");
+            detailFragment.setMovieId(item.getId());
 
         }
 
@@ -128,6 +90,55 @@ public class MainActivity extends AppCompatActivity implements MovieListFragment
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    public void OnClickBtnRefresh(View view) {
+        imgLoading.setVisibility(View.VISIBLE);
+        layoutEmpty.setVisibility(View.GONE);
+        layoutList.setVisibility(View.GONE);
+        fetchList();
+    }
+
+    private void fetchList() {
+        viewModel.loadData(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        fetchList();
+    }
+
+    @Override
+    public void OnDataLoading(int status, LiveData<List<MovieItem>> data) {
+        movieListFragment.setRefreshing(false);
+
+        switch (status) {
+            case DataRepository.DATABASE_DATA:
+                Toast.makeText(MainActivity.this, R.string.cache_info, Toast.LENGTH_LONG).show();
+            case DataRepository.API_DATA:
+
+                imgLoading.setVisibility(View.GONE);
+                layoutList.setVisibility(View.VISIBLE);
+                layoutEmpty.setVisibility(View.GONE);
+
+                data.observe(this, new Observer<List<MovieItem>>() {
+                    @Override
+                    public void onChanged(@Nullable List<MovieItem> movieEntities) {
+                        movieListFragment.setMovies(movieEntities);
+                        if (!movieEntities.isEmpty() && detailFragment != null) {
+                            detailFragment.setMovieId(movieEntities.get(0).getId());
+                        }
+                    }
+                });
+
+                break;
+            case DataRepository.ERROR:
+                imgLoading.setVisibility(View.GONE);
+                layoutList.setVisibility(View.GONE);
+                layoutEmpty.setVisibility(View.VISIBLE);
+                break;
+        }
 
     }
 }

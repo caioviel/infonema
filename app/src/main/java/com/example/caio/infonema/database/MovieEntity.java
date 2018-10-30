@@ -7,6 +7,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity(tableName = "movie")
@@ -19,6 +20,18 @@ public class MovieEntity {
     @Expose
     protected String title;
 
+
+    @Expose
+    protected List<String> genres;
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+    
     @SerializedName("poster_url")
     protected String posterUrl;
 
@@ -236,11 +249,5 @@ public class MovieEntity {
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
-
-    public String getGenres() {
-        return "Drama, Crime";
-    }
-
-
 
 }

@@ -27,6 +27,8 @@ import com.example.caio.infonema.viewModel.DetailViewModelFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
+import java.text.SimpleDateFormat;
+
 
 public class DetailFragment extends Fragment implements DataRepository.LoadedDataListener<LiveData<MovieEntity>> {
 
@@ -38,10 +40,12 @@ public class DetailFragment extends Fragment implements DataRepository.LoadedDat
     private ImageView imgCover, imgBackDrop, imgAdult;
 
     private View detailLayout;
-    private ImageView imgLoading;
+    private View imgLoading;
     private View emptyLayout;
 
     private DetailViewModel viewModel;
+
+    private SimpleDateFormat dateFormat;
 
 
     @Override
@@ -74,6 +78,8 @@ public class DetailFragment extends Fragment implements DataRepository.LoadedDat
 
 
         mDb = AppDatabase.getsInstance(getContext());
+
+        dateFormat = new SimpleDateFormat("yyyy-MMM");
 
 
         Intent intent = getActivity().getIntent();
@@ -109,6 +115,10 @@ public class DetailFragment extends Fragment implements DataRepository.LoadedDat
 
     public void loadMovieById(int movieID) {
         Log.i(LOG_TAG, "loadMovieById: " + Integer.toString(movieID));
+
+        imgLoading.setVisibility(View.VISIBLE);
+        detailLayout.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.GONE);
 
         viewModel.setMovieId(movieID);
         viewModel.loadData(this);
@@ -157,7 +167,7 @@ public class DetailFragment extends Fragment implements DataRepository.LoadedDat
             sb.append("\"");
             txtTagLine.setText(sb.toString());
         }
-        txtReleaseDate.setText(movieEntity.getReleaseDate().toString());
+        txtReleaseDate.setText(dateFormat.format(movieEntity.getReleaseDate()));
 
         txtGenres.setText(GenresConveter.toString(movieEntity.getGenres()));
 

@@ -1,163 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".DetailFragment">
 
-
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/img_loading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <ImageView
-            android:id="@+id/img_backdrop_url"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:src="@drawable/backimage_dummy"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/img_adult"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/adult_only"
-            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:src="@drawable/progress_animation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ImageView
-            android:id="@+id/img_popularity"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/circle"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img_adult" />
-
-        <TextView
-            android:id="@+id/lbl_popularity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center_horizontal"
-            android:text="@string/popularity"
-            android:textColor="@color/colorWhite"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/img_popularity"
-            app:layout_constraintLeft_toLeftOf="@id/img_popularity"
-            app:layout_constraintRight_toRightOf="@id/img_popularity" />
-
-        <TextView
-            android:id="@+id/txt_popularity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@{movie.popularity}"
-            android:textColor="@color/colorWhite"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/img_popularity"
-            app:layout_constraintLeft_toLeftOf="@id/img_popularity"
-            app:layout_constraintRight_toRightOf="@id/img_popularity"
-            app:layout_constraintTop_toTopOf="@id/img_popularity"
-            tools:text="@string/preview_popularity" />
-
-        <ImageView
-            android:id="@+id/img_votes"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/circle_green"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img_popularity" />
-
-        <TextView
-            android:id="@+id/lbl_votes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:gravity="center_horizontal"
-            android:text="@string/votes"
-            android:textColor="@color/colorWhite"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/img_votes"
-            app:layout_constraintLeft_toLeftOf="@id/img_votes"
-            app:layout_constraintRight_toRightOf="@id/img_votes" />
-
-        <TextView
-            android:id="@+id/txt_votes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@{movie.voteAverage}"
-            android:textColor="@color/colorWhite"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/img_votes"
-            app:layout_constraintLeft_toLeftOf="@id/img_votes"
-            app:layout_constraintRight_toRightOf="@id/img_votes"
-            app:layout_constraintTop_toTopOf="@id/img_votes"
-            tools:text="@string/preview_votes" />
-
-
-        <TextView
-            android:id="@+id/txt_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{movie.title}"
-            android:textColor="@color/colorWhite"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/img_backdrop_url"
-            tools:text="@string/preview_title" />
 
 
     </android.support.constraint.ConstraintLayout>
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/layout_noview"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-        w
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <ImageView
-            android:id="@+id/img_cover"
-            android:layout_width="wrap_content"
+
+        <TextView
+            android:id="@+id/lbl_nodata"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/dummy_cover"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img_backdrop_url" />
+            android:gravity="center"
+            android:text="@string/emptyDetail"
+            android:textSize="18dp" />
 
-        <ScrollView
-            android:layout_width="wrap_content"
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.constraint.ConstraintLayout
+            <ImageView
+                android:id="@+id/img_backdrop_url"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:src="@drawable/backimage_dummy"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_adult"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/adult_only"
+                android:visibility="visible"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/img_popularity"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/circle"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_adult" />
+
+            <TextView
+                android:id="@+id/lbl_popularity"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_horizontal"
+                android:text="@string/popularity"
+                android:textColor="@color/colorWhite"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/img_popularity"
+                app:layout_constraintLeft_toLeftOf="@id/img_popularity"
+                app:layout_constraintRight_toRightOf="@id/img_popularity" />
+
+            <TextView
+                android:id="@+id/txt_popularity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@{movie.popularity}"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/img_popularity"
+                app:layout_constraintLeft_toLeftOf="@id/img_popularity"
+                app:layout_constraintRight_toRightOf="@id/img_popularity"
+                app:layout_constraintTop_toTopOf="@id/img_popularity"
+                tools:text="@string/preview_popularity" />
+
+            <ImageView
+                android:id="@+id/img_votes"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/circle_green"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_popularity" />
+
+            <TextView
+                android:id="@+id/lbl_votes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:gravity="center_horizontal"
+                android:text="@string/votes"
+                android:textColor="@color/colorWhite"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/img_votes"
+                app:layout_constraintLeft_toLeftOf="@id/img_votes"
+                app:layout_constraintRight_toRightOf="@id/img_votes" />
+
+            <TextView
+                android:id="@+id/txt_votes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@{movie.voteAverage}"
+                android:textColor="@color/colorWhite"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/img_votes"
+                app:layout_constraintLeft_toLeftOf="@id/img_votes"
+                app:layout_constraintRight_toRightOf="@id/img_votes"
+                app:layout_constraintTop_toTopOf="@id/img_votes"
+                tools:text="@string/preview_votes" />
+
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{movie.title}"
+                android:textColor="@color/colorWhite"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/img_backdrop_url"
+                tools:text="@string/preview_title" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+
+                <ImageView
+                    android:id="@+id/img_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top"
+                    android:adjustViewBounds="true"
+                    android:foregroundGravity="top"
+                    android:src="@drawable/dummy_cover" />
+
+            </FrameLayout>
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.5">
 
 
                 <TextView
                     android:id="@+id/txt_overview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_marginTop="4dp"
                     android:text="@{movie.overview}"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/preview_overvire" />
@@ -180,6 +234,7 @@
                     android:layout_marginTop="4dp"
                     android:gravity="center_horizontal"
                     android:text="@string/genres"
+                    android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@id/txt_tagline" />
 
 
@@ -203,6 +258,7 @@
                     android:layout_marginTop="4dp"
                     android:gravity="center_horizontal"
                     android:text="@string/runtime"
+                    android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@id/lbl_genres" />
 
 
@@ -235,6 +291,7 @@
                     android:layout_marginTop="4dp"
                     android:gravity="center_horizontal"
                     android:text="@string/release_date"
+                    android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@id/lbl_runtime" />
 
 
@@ -258,6 +315,7 @@
                     android:layout_marginTop="4dp"
                     android:gravity="center_horizontal"
                     android:text="@string/budget"
+                    android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@id/lbl_release_date" />
 
                 <TextView
@@ -291,6 +349,7 @@
                     android:layout_marginTop="4dp"
                     android:gravity="center_horizontal"
                     android:text="@string/revenue"
+                    android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@id/lbl_budget" />
 
                 <TextView
@@ -321,9 +380,9 @@
             </android.support.constraint.ConstraintLayout>
 
 
-        </ScrollView>
+        </LinearLayout>
+
 
     </LinearLayout>
 
-
-</LinearLayout>
+</FrameLayout>

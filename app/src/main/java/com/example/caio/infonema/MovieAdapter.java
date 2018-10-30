@@ -8,29 +8,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.caio.infonema.MovieListFragment.OnListFragmentInteractionListener;
-import com.example.caio.infonema.database.MovieEntity;
+import com.example.caio.infonema.database.MovieItem;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
-    private List<MovieEntity> mItems;
+    private List<MovieItem> mItems;
     private final OnListFragmentInteractionListener mListener;
 
-    public MovieAdapter(List<MovieEntity> items, OnListFragmentInteractionListener listener) {
+    public MovieAdapter(List<MovieItem> items, OnListFragmentInteractionListener listener) {
         mItems = items;
         mListener = listener;
     }
 
-    public void setItems(List<MovieEntity> items) {
+    public void setItems(List<MovieItem> items) {
         mItems = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_movie, parent, false);
+                .inflate(R.layout.movie_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -64,7 +64,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         public final View mView;
         public final ImageView mMovieCover;
         public final TextView mMovieTitle;
-        public MovieEntity mItem;
+        public MovieItem mItem;
 
         public ViewHolder(View view) {
             super(view);
