@@ -7,13 +7,13 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.util.Log;
 
-@Database(entities = {MovieEntity.class}, version = 1, exportSchema = false)
-@TypeConverters(DateConverter.class)
+@Database(entities = {MovieEntity.class, MovieItem.class}, version = 1, exportSchema = false)
+@TypeConverters({DateConverter.class, GenresConveter.class})
 public abstract class  AppDatabase extends RoomDatabase {
 
     private static final String LOG_TAG = AppDatabase.class.getSimpleName();
     private static final Object LOCK = new Object();
-    private static final String DATABASE_NAME = "moviedatabase2";
+    private static final String DATABASE_NAME = "moviedatabase6";
     private static AppDatabase sInstance;
 
     public static AppDatabase getsInstance(Context context) {
